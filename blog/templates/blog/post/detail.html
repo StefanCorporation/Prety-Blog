@@ -1,0 +1,83 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+
+{% block title %}{{ post.title }}{% endblock %}
+
+
+{% block content %}
+<div class="clear"> </div>
+<!-- content-gallery-->
+</div>
+<div class="wrap">
+    <div class="about">
+        <div class="services-sidebar">
+        <h4>Categories</h4>
+        <ul>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+        </ul><br>
+        <h4>Archives</h4>
+        <ul>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Jan, 2012</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">Feb, 2012</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">March, 2012</a></li>
+            <li><img src="images/pointer.png" title="pointer" /><a href="#">April, 2012</a></li>
+        </ul>
+    </div>
+        <div class="bloder-content">
+            
+    <div class="blog-box1">
+        <div class="blog-box-image">
+            {% if post.images %}
+                <img src="{{ post.images.url }}" title="{{ post.title }}" />
+            {% else %}
+                <img src="{% static 'images/no-image-available.jpg' %}" title="No Image Available" />
+            {% endif %}
+        </div>
+        <div class="blog-box-content">
+            <h5><a href="#">{{ post.title }}</a></h5>
+            <p>{{ post.body }}</p>
+            <ul>
+                <li><a href="#">Published by {{ post.author }}</a></li>
+                <li><a href="#">: {{ post.publish }}</a></li>
+                {% with comments.count as total_comments %}
+                    <h2>
+                        <span style="margin-left: 20px;">
+                            <p>{{ total_comments }} comment{{ total_comments|pluralize }}</p>
+                        </span>
+                    </h2>
+                {% endwith %}
+                {% for comment in comments %}
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">{{ comment.created }}</div>
+                    <div class="card-body text-primary">
+                      <h5 class="card-title">Comment №{{ forloop.counter }} by {{ comment.name }}</h5>
+                      <p class="card-text">{{ comment.body|truncatewords:50}}</p>
+                    </div>
+                  </div>
+
+                  
+                {% empty %}
+                        <p>Tere are no comets yet.</p>
+                {% endfor %}
+                {% include "blog/post/includes/comment_form.html" %}
+                <li><a href="{% url 'blog:post_share' post.id %}"><span>Share this post</span></a></li>
+            </ul>
+        </div>
+    </div>					
+        <div class="clear"> </div>
+    </div>	
+</div>
+</div>	
+<div class="clear"> </div>
+			<!-- End-content-gallery-->
+{% endblock %}
+

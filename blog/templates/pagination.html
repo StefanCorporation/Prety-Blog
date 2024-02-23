@@ -1,0 +1,21 @@
+{% if is_paginated %}
+<nav aria-label="...">
+    <ul class="pagination">  
+      <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
+        <a class="page-link" href="{% if page_obj.has_previous %} 
+            {% url 'blog:paginator' page_obj.previous_page_number %}
+              {% else %} # {% endif %}">Previous</a>
+      </li>
+{% endif %}
+    {% for page in paginator.page_range %}
+      <li class="page-item">
+        <a class="page-link" href="{% url 'blog:paginator' page %}">{{ page }}</a>
+      </li>
+    {% endfor %}
+      <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
+        <a class="page-link" href="{% if page_obj.has_next %}
+          {% url 'blog:paginator' page_obj.next_page_number %}   
+            {% else %} # {% endif %}">Next</a>
+      </li>
+    </ul>
+</nav>

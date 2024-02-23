@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+
+{% block content %} 
+<div class="clear"> </div>
+    <!-- content-gallery-->
+    </div>
+    <div class="wrap">
+        <div class="about">
+            <div class="services-sidebar">
+            <h4>Categories</h4>
+            <ul>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Lorem ipsum dolor sit amet</a></li>
+            </ul><br>
+            <h4>Archives</h4>
+            <ul>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Jan, 2012</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">Feb, 2012</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">March, 2012</a></li>
+                <li><img src="images/pointer.png" title="pointer" /><a href="#">April, 2012</a></li>
+            </ul>
+        </div>
+
+        {% for post in posts %}
+            <div class="bloder-content">						
+            <div class="bloger-grid">						
+                <div class="blog-img">
+                    {% if post.images %}
+                        <img src="{{ post.images.url }}" title="{{ post.title }}" />
+                    {% else %}
+                        <img src="{% static 'images/no-image-available.jpg' %}" title="No Image Available" />
+                    {% endif %}
+                </div>
+                <div class="bloger-content">
+                    <h5><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+                    <p> {{ post.body|truncatewords:50 }} </p>
+                    <ul>
+                        <li><a href="#">Published by {{ post.author }}</a></li>
+                        <li><a href="#">: {{ post.publish }} </a></li>
+                        <li><a href="{{ post.get_absolute_url }}"><span>Readmore</span></a></li>
+                    </ul>
+                </div>
+                <div class="clear"> </div>
+            </div>
+        {% endfor %}					
+<div class="clear"> </div>
+
+<p>{% include "pagination.html" with page=page_obj %}</p>
+{% endblock %}
+
+
+
