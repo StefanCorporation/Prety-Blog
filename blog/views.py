@@ -8,6 +8,7 @@ from .forms import EmailPostForm, CommentForm
 from django.views.decorators.http import require_POST
 
 
+
 class PostListView(ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'

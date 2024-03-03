@@ -55,19 +55,37 @@
                         </span>
                     </h2>
                 {% endwith %}
-                {% for comment in comments %}
-                <div class="card border-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">{{ comment.created }}</div>
-                    <div class="card-body text-primary">
-                      <h5 class="card-title">Comment №{{ forloop.counter }} by {{ comment.name }}</h5>
-                      <p class="card-text">{{ comment.body|truncatewords:50}}</p>
+                    <div class="row">
+                        <div class="col-8">
+                        <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0" style="width: 750px;">
+                            {% for comment in comments %}
+                            <h4 id="list-item-1">{{ comment.name }}</h4>
+                            <h7 style="color: blue;">{{ comment.created }}</h7> 
+                            <p>{{ comment.body|truncatewords:50}}</p>
+                                {% if comment.body|length > 50 %}
+                                    <div class="btn-group dropend">
+                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Read all
+                                        </button>                       
+                                        <ul class="dropdown-menu" style="width: 800px;">
+                                            <div class="col-8">
+                                                <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+                                                  <div id="item-1">
+                                                    <h4>Comment author: {{ comment.name }}</h4>
+                                                        <div class="container">
+                                                            <p>{{ comment.body|truncatewords:1000}}</p>
+                                                        </div>
+                                              </div>
+                                        </ul>
+                                    </div>
+                                    <p></p>
+                                {% endif %}
+                            {% empty %}
+                                <p>Tere are no comets yet.</p>                         
+                            {% endfor %}
+                        </div>
+                        </div>
                     </div>
-                  </div>
-
-                  
-                {% empty %}
-                        <p>Tere are no comets yet.</p>
-                {% endfor %}
                 {% include "blog/post/includes/comment_form.html" %}
                 <li><a href="{% url 'blog:post_share' post.id %}"><span>Share this post</span></a></li>
             </ul>
